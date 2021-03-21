@@ -54,14 +54,14 @@ contract SuperMinter is TrueFansNFT {
         
         logTime(timeSinceStarted);
             // 15mins
-            if(timeSinceStarted > 900 ) {
+            if(timeSinceStarted > 900 && startTime > 0) {
                 //mint tier 3 NFT
                 mintNFT(msg.sender,3);
             // 5 mins    
-            } else if (timeSinceStarted > 300){
+            } else if (timeSinceStarted > 300 && startTime > 0){
                 //mint tier 2 NFT
                 mintNFT(msg.sender,2);
-            } else {
+            } else if (timeSinceStarted > 0 && startTime > 0){
                 //mint tier 1 NFTs
                 mintNFT(msg.sender,1);
             }

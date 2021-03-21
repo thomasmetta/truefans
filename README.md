@@ -1,4 +1,4 @@
-# truefans (www.truefans.finance)
+# TrueFans (www.truefans.finance)
 
 This idea is based on the article [NFTs and a Thousand True Fans](https://a16z.com/2021/02/27/nfts-and-a-thousand-true-fans/) from Chris Dixon. 
 

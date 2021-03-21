@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
+import SuperfluidSDK from "@superfluid-finance/js-sdk";
 import { superMinterAbi } from './abi';
 import './App.css';
 import tier1Image from './tier1.png';
@@ -17,6 +18,9 @@ function App() {
   const [tierTwoCount, setTierTwoCount] = useState(false);
   const [tierThreeCount, setTierThreeCount] = useState(false);
   const [currentAddress, setCurrentAddress] = useState("");
+  const [amountPerSecond, setAmountPerSecond] = useState();
+  const [amountPerMonth, setAmountPerMonth] = useState();
+  const [isSupporter, setIsSupporter] = useState(false);
 
   useEffect(() => {
     async function fetchMyAPI() {
@@ -34,7 +38,27 @@ function App() {
       setTierThreeCount(tierThreeresult > 0);
 
 
-  console.log(tierOneCount)
+      const sf = new SuperfluidSDK.Framework({
+        web3: new Web3(window.ethereum),
+    });
+    await sf.initialize()
+
+    const user = sf.user({
+      address: account,
+      token: '0x8aE68021f6170E5a766bE613cEA0d75236ECCa9a'
+    });
+
+  const details = await user.details();
+
+  if(details.cfa.flows.outFlows[0]) {
+    setIsSupporter(true)
+    const flowRate = details.cfa.flows.outFlows[0].flowRate;
+    const formattedToEther = web3.utils.fromWei(flowRate, 'ether');
+    setAmountPerSecond(formattedToEther)
+    const formattedToEtherPerMonth = formattedToEther * 60 * 60 * 24 * 30;
+    setAmountPerMonth(formattedToEtherPerMonth)
+  }
+
   setCurrentAddress(account)
     }
   
@@ -58,6 +82,8 @@ const handleSet = async (e) => {
           to 0x1Ad4474219e460B0Abd041565bB6C31666f39198 by opening a stream at <a className="App-link" target="_blank" href={"https://app.superfluid.finance/"}>Superfiuld</a></p>
 
       <p>Your current address: {currentAddress}</p>
+      {isSupporter ? <><p>You are currently supporting</p> <p> {amountPerSecond} USDC per second</p>
+      <p> {amountPerMonth} USDC per month</p></> : <p>You are currently not subscribed</p>}
         
       <button onClick={handleSet} type="button">Redeem membership reward</button>
 

@@ -8,7 +8,7 @@ import tier3Image from './tier3.png';
 
  
 const web3 = new Web3(Web3.givenProvider);
-const contractAddr = '0x4E4A709e4cf44D858B1CE43F4d1666D936C3FED0';
+const contractAddr = '0x05a355b56c86290c1F3B47Eaea942E7fD6EEE7D7';
 const SimpleContract = new web3.eth.Contract(superMinterAbi, contractAddr);
 
 function App() {
@@ -53,7 +53,9 @@ const handleSet = async (e) => {
     <div className="App">
       <header className="App-header">
 
-        <p>Hi, I am a content creator. Please support me by sending me DAIx to 0x1Ad4474219e460B0Abd041565bB6C31666f39198 by opening a stream at <a className="App-link" target="_blank" href={"https://app.superfluid.finance/"}>Superfiuld</a></p>
+        <p>Hi, I am a content creator. Please support me by sending me 
+          <a className="App-link" target="_blank" href={"https://goerli.etherscan.io/address/0x8aE68021f6170E5a766bE613cEA0d75236ECCa9a"}> USDCx </a> 
+          to 0x1Ad4474219e460B0Abd041565bB6C31666f39198 by opening a stream at <a className="App-link" target="_blank" href={"https://app.superfluid.finance/"}>Superfiuld</a></p>
 
       <p>Your current address: {currentAddress}</p>
         
